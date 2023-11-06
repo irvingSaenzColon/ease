@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shopping_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.ease.fragments.shopping.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"/>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.ease.fragments.shopping.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search"/>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.ease.fragments.shopping.ProfileSettingsFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile_settings">
+        <action
+            android:id="@+id/action_profileFragment_to_profileOptions"
+            app:destination="@id/profileOptions" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.ease.fragments.shopping.CartFragment"
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_car"/>
+    <fragment
+        android:id="@+id/profileOptions"
+        android:name="com.example.ease.fragments.loginRegister.ProfileOptions"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileOptions_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+</navigation>

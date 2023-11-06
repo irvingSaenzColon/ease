@@ -1,3 +1,48 @@
 <resources>
-    <string name="app_name">Ease</string>
+    <string name="app_name">Ease.</string>
+    <string name="right_app">Right and secure\noption to rent a\ncar</string>
+    <string name="secure">Now is really easy and fast\nto rent a car with trustworthy people\nfrom all over the world</string>
+    <string name="start">start</string>
+    <string name="register">Register</string>
+    <string name="login">Login</string>
+    <string name="create_account">Create an account</string>
+    <string name="have_account">Do you have an account already?</string>
+    <string name="Lets_login">Let\'s Login</string>
+
+    <string name="whatsnew">What\'s new on Ease?</string>
+    <string name="best_seller">Best Seller</string>
+    <string name="recent">Recent</string>
+
+    <string name="name">name</string>
+    <string name="username">username</string>
+    <string name="birthdate">birthdate</string>
+    <string name="male">male</string>
+    <string name="female">female</string>
+    <string name="other">other</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="confirm_password">confirm password</string>
+    <string name="join_ease">Joint to Ease and discover all the possibilities</string>
+
+    <string name="gender">Gender</string>
+
+    <string name="step">Step 1 of 3</string>
+    <string name="step1of3">Step 1 of 3</string>
+    <string name="step2of3">Step 2 of 3</string>
+
+    <string name="signup">Sign up</string>
+    <string name="next">Next</string>
+    <string name="back">Back</string>
+    <string name="step3of3">Step 3 of 3</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="see_password">see password</string>
+    <string name="rented_cars">rented cars</string>
+    <string name="pay_methods">pay methods</string>
+    <string name="published_cars">published cars</string>
+    <string name="language">language</string>
+    <string name="logout">logout</string>
+    <string name="security">security</string>
+
+
 </resources>

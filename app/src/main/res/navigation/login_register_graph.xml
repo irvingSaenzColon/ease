@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_register_graph"
+    app:startDestination="@id/introductionFragment">
+
+    <fragment
+        android:id="@+id/introductionFragment"
+        android:name="com.example.ease.fragments.loginRegister.IntroductionFragment"
+        android:label="IntroductionFragment"
+        tools:layout="@layout/fragment_introduction"
+        >
+        <action
+            android:id="@+id/action_introductionFragment_to_accountOptionsFragment"
+            app:destination="@id/accountOptionsFragment"
+            app:enterAnim="@anim/from_bottom"
+            app:exitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountOptionsFragment"
+        android:name="com.example.ease.fragments.loginRegister.AccountOptionsFragment"
+        android:label="AccountOptionsFragment"
+        tools:layout="@layout/fragment_account_options"
+        >
+        <action
+            android:id="@+id/action_accountOptionsFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@anim/from_right_anim"
+            app:exitAnim="@anim/to_left_anim"
+            app:popEnterAnim="@anim/from_left_anim"
+            app:popExitAnim="@anim/to_right_anim" />
+        <action
+            android:id="@+id/action_accountOptionsFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/from_right_anim"
+            app:exitAnim="@anim/to_left_anim"
+            app:popEnterAnim="@anim/from_left_anim"
+            app:popExitAnim="@anim/to_right_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.ease.fragments.loginRegister.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login"
+        >
+        <action
+            android:id="@+id/action_loginFragment_to_accountOptionsFragment"
+            app:destination="@id/accountOptionsFragment"
+            app:enterAnim="@anim/from_left_anim"
+            app:exitAnim="@anim/to_right_anim"
+            app:popEnterAnim="@anim/from_right_anim"
+            app:popExitAnim="@anim/to_left_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.ease.fragments.loginRegister.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register"
+        >
+        <action
+            android:id="@+id/action_registerFragment_to_accountOptionsFragment"
+            app:destination="@id/accountOptionsFragment"
+            app:enterAnim="@anim/from_left_anim"
+            app:exitAnim="@anim/to_right_anim"
+            app:popEnterAnim="@anim/from_right_anim"
+            app:popExitAnim="@anim/to_left_anim" />
+        <action
+            android:id="@+id/action_registerFragment_to_registerTwoFragment"
+            app:destination="@id/registerTwoFragment"
+            app:enterAnim="@anim/from_right_anim"
+            app:exitAnim="@anim/to_left_anim"
+            app:popEnterAnim="@anim/from_left_anim"
+            app:popExitAnim="@anim/to_right_anim" />
+        <argument
+            android:name="error"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerTwoFragment"
+        android:name="com.example.ease.fragments.loginRegister.RegisterTwoFragment"
+        android:label="RegisterTwoFragment"
+        tools:layout="@layout/fragment_register_2"
+        >
+        <action
+            android:id="@+id/action_registerTwoFragment_to_registerThreeFragment"
+            app:destination="@id/registerThreeFragment"
+            app:enterAnim="@anim/from_right_anim"
+            app:exitAnim="@anim/to_left_anim"
+            app:popEnterAnim="@anim/from_left_anim"
+            app:popExitAnim="@anim/to_right_anim" />
+        <action
+            android:id="@+id/action_registerTwoFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/from_left_anim"
+            app:exitAnim="@anim/to_right_anim"
+            app:popEnterAnim="@anim/from_right_anim"
+            app:popExitAnim="@anim/to_left_anim" />
+        <argument
+            android:name="error"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerThreeFragment"
+        android:name="com.example.ease.fragments.loginRegister.RegisterThreeFragment"
+        android:label="RegisterThreeFragment"
+        tools:layout="@layout/fragment_register_3"
+        >
+        <action
+            android:id="@+id/action_registerThreeFragment_to_registerTwoFragment"
+            app:destination="@id/registerTwoFragment"
+            app:enterAnim="@anim/from_left_anim"
+            app:exitAnim="@anim/to_right_anim"
+            app:popEnterAnim="@anim/from_right_anim"
+            app:popExitAnim="@anim/to_left_anim" />
+        <action
+            android:id="@+id/action_registerThreeFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/from_left_anim"
+            app:exitAnim="@anim/to_right_anim"
+            app:popEnterAnim="@anim/from_right_anim"
+            app:popExitAnim="@anim/to_left_anim" />
+    </fragment>
+</navigation>

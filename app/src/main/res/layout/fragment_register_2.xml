@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/blury_background"
+        android:scaleType="centerCrop"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tvAppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableStartCompat="@drawable/ic_ease_logo"
+            android:drawablePadding="6dp"
+            style="@style/h3"
+            android:text="@string/app_name"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/tvLetsLogin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/h3"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/tvAppName"
+            app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
+            app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
+            android:text="@string/join_ease"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            />
+
+        <TextView
+            android:id="@+id/tvLittleWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/h2"
+            app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
+            app:layout_constraintTop_toBottomOf="@id/tvLetsLogin"
+            android:layout_marginTop="15dp"
+            android:text="@string/step2of3"
+            android:textStyle="bold"
+            />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/editTextHeight"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
+            app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
+            app:layout_constraintTop_toBottomOf="@id/tvLittleWelcome"
+            style="@style/editText"
+            android:hint="@string/email"
+            />
+
+        <EditText
+            android:id="@+id/etPasswordRegister"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/editTextHeight"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
+            app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
+            app:layout_constraintTop_toBottomOf="@id/etEmail"
+            style="@style/editText"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            />
+
+        <EditText
+            android:id="@+id/etConfirmPasswordRegister"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/editTextHeight"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
+            app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
+            app:layout_constraintTop_toBottomOf="@id/etPasswordRegister"
+            style="@style/editText"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword"
+            />
+        <CheckBox
+            android:id="@+id/cbSeePassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@+id/etConfirmPasswordRegister"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft"
+            android:fontFamily="@font/poppins_light"
+            android:textColor="@color/raisin_black"
+            android:text="@string/see_password"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnNext"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/medium_button_height"
+            style="@style/purpleButtonStyle"
+            android:layout_marginTop="50dp"
+            app:layout_constraintTop_toBottomOf="@id/cbSeePassword"
+            app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
+            app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
+            android:text="@string/next" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnPrevious"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/medium_button_height"
+            style="@style/secondaryButtonStyle"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/btnNext"
+            app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
+            app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
+            android:text="@string/back" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineLoginLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.1" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineLoginRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
