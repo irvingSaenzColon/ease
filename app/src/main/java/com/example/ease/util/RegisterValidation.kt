@@ -22,3 +22,15 @@ data class LoginFieldsState(
     val credential : RegisterValidation,
     val password : RegisterValidation
 )
+
+data class PasswordFieldsState(
+    val currentPassword : RegisterValidation,
+    val newPassword : RegisterValidation ,
+    val confirmPassword: RegisterValidation
+)
+
+data class CarFieldStateOne(
+    val name : RegisterValidation,
+    val price : RegisterValidation,
+    val model : RegisterValidation
+)

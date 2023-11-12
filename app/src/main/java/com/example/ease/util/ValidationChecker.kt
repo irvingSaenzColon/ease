@@ -2,7 +2,7 @@ package com.example.ease.util
 
 import android.util.Patterns
 fun onlyLetters( word :String ) : Boolean {
-    val regex = "^[A-Za-z ]+$".toRegex()
+    val regex = "^[A-Za-zÁÉÍÓÚáéíóú ]+$".toRegex()
     return regex.matches( word )
 }
 fun passwordSecurity( password :String ) : Boolean{
@@ -14,6 +14,11 @@ fun nicknameFormat( nickname : String ) : Boolean{
 
     return regex.matches( nickname )
 }
+fun decimalFormat( decimal : String ) : Boolean{
+    val regex = "^([0-9]+)(\\.)*([0-9])*\$".toRegex()
+    return regex.matches( decimal )
+}
+
 fun validateName( name : String ) : RegisterValidation{
     if(name.isEmpty())
         return RegisterValidation.Failed("Name can't be empty")
@@ -70,6 +75,16 @@ fun validateConfirmPassword(password : String, confirmPassword : String) : Regis
         return RegisterValidation.Failed("Password can't be empty")
 
     if(confirmPassword != password)
+        return RegisterValidation.Failed("This field does not match with password")
+
+    return RegisterValidation.Success
+}
+
+fun validateDecimal(decimal: String) : RegisterValidation{
+    if(decimal.isEmpty())
+        return RegisterValidation.Failed("Password can't be empty")
+
+    if(! decimalFormat( decimal ) )
         return RegisterValidation.Failed("This field does not match with password")
 
     return RegisterValidation.Success

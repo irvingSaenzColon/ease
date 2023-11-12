@@ -6,8 +6,8 @@
     <item android:id="@+id/searchFragment"
         android:title="Search"
         android:icon="@drawable/ic_search" />
-    <item android:id="@+id/cartFragment"
-        android:title="Cart"
+    <item android:id="@+id/carFragment"
+        android:title="Car"
         android:icon="@drawable/ic_car" />
     <item android:id="@+id/profileFragment"
         android:title="Profile"

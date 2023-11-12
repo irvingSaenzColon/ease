@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.ease.EaseApplication.Companion.session
@@ -31,6 +30,7 @@ class ProfileSettingsFragment : Fragment(R.layout.fragment_profile_settings), Vi
 
         binding.cvLogout.setOnClickListener( this )
         binding.cvProfileSettings.setOnClickListener( this )
+        binding.cvSecurity.setOnClickListener( this )
 
         return binding.root
     }
@@ -58,6 +58,9 @@ class ProfileSettingsFragment : Fragment(R.layout.fragment_profile_settings), Vi
             binding.cvProfileSettings.id ->{
                 findNavController().navigate( ProfileSettingsFragmentDirections.actionProfileFragmentToProfileOptions() )
             }
+            binding.cvSecurity.id ->{
+                findNavController().navigate( ProfileSettingsFragmentDirections.actionProfileFragmentToSecurityFragment() )
+            }
         }
     }
 
@@ -69,5 +72,7 @@ class ProfileSettingsFragment : Fragment(R.layout.fragment_profile_settings), Vi
         val decodedByte = BitmapFactory.decodeByteArray( decodedString, 0, decodedString.size )
         binding.ciProfileImage.setImageBitmap( decodedByte )
     }
+
+
 
 }

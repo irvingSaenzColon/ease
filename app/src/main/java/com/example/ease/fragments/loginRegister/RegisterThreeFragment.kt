@@ -10,17 +10,15 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
-import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.ease.EaseApplication
 import com.example.ease.EaseApplication.Companion.userRegister
 import com.example.ease.R
 import com.example.ease.activities.CarsShoppingActivity
@@ -76,6 +74,9 @@ class RegisterThreeFragment : Fragment(R.layout.fragment_register_3), View.OnCli
             try{
 
                 val response = APIService().signup( userModel )
+
+                if(response.body != null) EaseApplication.session.storeSession( response.body )
+
                 Intent(requireActivity(), CarsShoppingActivity::class.java).also {intent ->
                     intent.addFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK )
                     startActivity( intent )
@@ -108,6 +109,7 @@ class RegisterThreeFragment : Fragment(R.layout.fragment_register_3), View.OnCli
 
                     bitmap.compress( Bitmap.CompressFormat.JPEG, 80, stream )
                     val byteArray = stream.toByteArray()
+
                     val imageBase64 = "data:image/png;base64,"+Base64.encodeToString( byteArray, Base64.DEFAULT )
 
                     userRegister.picture = imageBase64

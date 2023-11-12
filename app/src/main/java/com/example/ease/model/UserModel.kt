@@ -1,7 +1,7 @@
 package com.example.ease.model
 
 data class UserModel(
-    val id : Int = 0,
+    var id : Int = 0,
     var name : String = "",
     var nickname : String = "",
     var birthdate : String ="",

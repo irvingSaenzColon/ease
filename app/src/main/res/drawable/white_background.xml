@@ -4,6 +4,6 @@
     <corners android:radius="@dimen/buttonCorners"/>
     <stroke
         android:width="2dp"
-        android:color="@color/tin"
+        android:color="@color/jupiter"
         />
 </shape>

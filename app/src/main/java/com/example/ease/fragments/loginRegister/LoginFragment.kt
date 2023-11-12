@@ -2,7 +2,6 @@ package com.example.ease.fragments.loginRegister
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +9,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.ease.EaseApplication.Companion.session
-import com.example.ease.R
 import com.example.ease.activities.CarsShoppingActivity
 import com.example.ease.databinding.FragmentLoginBinding
 import com.example.ease.model.AuthenticateModel
-import com.example.ease.model.UserModel
 import com.example.ease.service.APIService
 import com.example.ease.util.LoginFieldsState
 import com.example.ease.util.RegisterValidation
@@ -76,10 +73,6 @@ class LoginFragment: Fragment(), View.OnClickListener {
         CoroutineScope( Dispatchers.IO ).launch {
             try{
                 val response = APIService().authenticate( authenticateModel )
-
-                val u = response.body
-
-                Log.i("session id", u?.id.toString())
 
                 if(response.body != null) session.storeSession( response.body )
 

@@ -22,6 +22,7 @@ class SessionPreference (context : Context){
 
     fun storeSession(userModel: UserModel){
         storage.edit().putInt(SHARED_ID, userModel.id).apply()
+        storage.edit().putString(SHARED_USERNAME, userModel.name).apply()
         storage.edit().putString(SHARED_NICKNAME, userModel.nickname).apply()
         storage.edit().putString(SHARED_BIRTHDATE, userModel.birthdate).apply()
         storage.edit().putString(SHARED_GENDER, userModel.gender).apply()

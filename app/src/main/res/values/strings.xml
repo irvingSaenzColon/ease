@@ -34,6 +34,7 @@
     <string name="next">Next</string>
     <string name="back">Back</string>
     <string name="step3of3">Step 3 of 3</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="see_password">see password</string>
@@ -43,6 +44,27 @@
     <string name="language">language</string>
     <string name="logout">logout</string>
     <string name="security">security</string>
+    <string name="my_profile">My Profile</string>
+    <string name="save">save</string>
+    <string name="security_info">Password can be changed anytime needed but, we recommend to change it every 6 months</string>
+    <string name="current_password">current password</string>
+    <string name="new_password">new password</string>
+    <string name="confirm_new_password">confirm new password</string>
+    <string name="publish_car">publish a car</string>
+    <string name="step1of2">step 1 of 2</string>
+    <string name="car_name">car name</string>
+    <string name="model">model</string>
+    <string name="price_per_day">price per day</string>
+    <string name="info_of_car">write down all the features from the car</string>
+    <string name="step2of2">step 2 of 2</string>
+    <string name="publish">publish</string>
+    <string name="add_image">add an image</string>
+    <string name="description">description</string>
+    <string name="rent_per_day">rent per day</string>
+    <string name="best_deals">Best deals for you</string>
+    <string name="search_now">search now</string>
+    <string name="rent">rent</string>
+    <string name="best_sellers">Best Sellers</string>
 
 
 </resources>
