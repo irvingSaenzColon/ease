@@ -47,7 +47,7 @@ class CarFragment : Fragment(R.layout.fragment_car), View.OnClickListener{
     override fun onClick(view: View?) {
         when( view?.id ){
             binding.btnAddVehicle.id->{
-                findNavController().navigate( CarFragmentDirections.actionCartFragmentToPublishVehicleOneFragment() )
+                findNavController().navigate( CarFragmentDirections.actionCartFragmentToPublishVehicleOneFragment( id = -1 ) )
             }
         }
     }

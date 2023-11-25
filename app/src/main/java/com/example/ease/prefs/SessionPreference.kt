@@ -46,8 +46,6 @@ class SessionPreference (context : Context){
             )
     }
 
-
-
     fun clearSession(){
         storage.edit().putInt( SHARED_ID, -1).apply()
         storage.edit().putString(SHARED_USERNAME, "").apply()

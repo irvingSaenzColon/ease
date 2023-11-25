@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_profileFragment_to_securityFragment"
             app:destination="@id/securityFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_myCarsFragment"
+            app:destination="@id/myCarsFragment" />
     </fragment>
     <fragment
         android:id="@+id/carFragment"
@@ -74,6 +77,12 @@
         <action
             android:id="@+id/action_publishVehicleOneFragment_to_publishVehicleTwoFragment"
             app:destination="@id/publishVehicleTwoFragment" />
+        <argument
+            android:name="id"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_publishVehicleOneFragment_to_myCarsFragment"
+            app:destination="@id/myCarsFragment" />
     </fragment>
     <fragment
         android:id="@+id/publishVehicleTwoFragment"
@@ -87,6 +96,9 @@
         <action
             android:id="@+id/action_publishVehicleTwoFragment_to_publishVehicleOneFragment"
             app:destination="@id/publishVehicleOneFragment" />
+        <action
+            android:id="@+id/action_publishVehicleTwoFragment_to_myCarsFragment"
+            app:destination="@id/myCarsFragment" />
     </fragment>
     <fragment
         android:id="@+id/vehicleFragment"
@@ -98,6 +110,18 @@
             android:name="id"
             app:argType="string"
             app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/myCarsFragment"
+        android:name="com.example.ease.fragments.shopping.MyCarsFragment"
+        android:label="MyCarsFragment"
+        tools:layout="@layout/fragment_my_cars">
+        <action
+            android:id="@+id/action_myCarsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_myCarsFragment_to_publishVehicleOneFragment"
+            app:destination="@id/publishVehicleOneFragment" />
     </fragment>
 
 </navigation>

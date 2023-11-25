@@ -29,6 +29,7 @@ class ProfileSettingsFragment : Fragment(R.layout.fragment_profile_settings), Vi
         _binding = FragmentProfileSettingsBinding.inflate( inflater, container, false )
 
         binding.cvLogout.setOnClickListener( this )
+        binding.cvPublishedCars.setOnClickListener( this )
         binding.cvProfileSettings.setOnClickListener( this )
         binding.cvSecurity.setOnClickListener( this )
 
@@ -60,6 +61,9 @@ class ProfileSettingsFragment : Fragment(R.layout.fragment_profile_settings), Vi
             }
             binding.cvSecurity.id ->{
                 findNavController().navigate( ProfileSettingsFragmentDirections.actionProfileFragmentToSecurityFragment() )
+            }
+            binding.cvPublishedCars.id->{
+                findNavController().navigate( ProfileSettingsFragmentDirections.actionProfileFragmentToMyCarsFragment() )
             }
         }
     }

@@ -12,5 +12,6 @@ data class VehicleModel(
     var username : String = "",
     var deleted : List<Int> = listOf(),
     var images : List<ImageModel> = listOf(),
-    var newImages : List<ImageModel> = listOf()
+    var newImages : List<ImageModel> = listOf(),
+    var edit : Boolean = false
 )

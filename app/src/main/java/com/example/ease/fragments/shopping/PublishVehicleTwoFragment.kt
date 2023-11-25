@@ -1,6 +1,7 @@
 package com.example.ease.fragments.shopping
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.os.Build
 import android.os.Bundle
@@ -38,6 +39,7 @@ class PublishVehicleTwoFragment : Fragment( R.layout.fragment_publish_vehicle_2 
     private var currentIndexSelected : Int = -1
 
     private val imagesSelectedList = mutableListOf<ImageSelectedModel>()
+    private val imagesDeleted = mutableListOf<Int>()
 
     private val pickMedia = registerForActivityResult(PickVisualMedia()){ uri ->
         val bitmap : Bitmap
@@ -48,7 +50,7 @@ class PublishVehicleTwoFragment : Fragment( R.layout.fragment_publish_vehicle_2 
             val source = ImageDecoder.createSource( requireContext().contentResolver, uri )
             bitmap = ImageDecoder.decodeBitmap( source )
             val base64 = "data:image/png;base64,"+Base64.encodeToString( bytes, Base64.DEFAULT )
-            imagesSelectedList.add( ImageSelectedModel(id = 0, image = base64, bitmap= bitmap) )
+            imagesSelectedList.add( ImageSelectedModel(id = -1, image = base64, bitmap= bitmap) )
 
             binding.ivCurrentSelected.setImageBitmap( bitmap )
 
@@ -57,6 +59,7 @@ class PublishVehicleTwoFragment : Fragment( R.layout.fragment_publish_vehicle_2 
             }
             currentIndexSelected = imagesSelectedList.size - 1
             imagesSelectedAdapter.notifyItemInserted( imagesSelectedList.size -1 )
+
         } else if (uri != null && Build.VERSION.SDK_INT < 28){
             val stream = ByteArrayOutputStream()
             bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
@@ -64,7 +67,7 @@ class PublishVehicleTwoFragment : Fragment( R.layout.fragment_publish_vehicle_2 
             val byteArray = stream.toByteArray()
             val base64 ="data:image/png;base64,"+Base64.encodeToString( byteArray, Base64.DEFAULT )
 
-            imagesSelectedList.add( ImageSelectedModel(id = 0, image = base64, bitmap= bitmap) )
+            imagesSelectedList.add( ImageSelectedModel(id = -1, image = base64, bitmap= bitmap) )
 
             binding.ivCurrentSelected.setImageBitmap( bitmap )
 
@@ -94,14 +97,29 @@ class PublishVehicleTwoFragment : Fragment( R.layout.fragment_publish_vehicle_2 
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        if(vehicleData.edit && vehicleData.images.isNotEmpty()){
+            loadImages( vehicleData.images )
+            binding.btnPublish.text = "Edit"
+            binding.ibRemoveImage.visibility = View.VISIBLE
+        }
+    }
+
     override fun onClick(view: View?) {
         when( view?.id ){
             binding.btnPrevious.id->{
-                findNavController().navigate( PublishVehicleTwoFragmentDirections.actionPublishVehicleTwoFragmentToPublishVehicleOneFragment() )
+                findNavController().navigate( PublishVehicleTwoFragmentDirections.actionPublishVehicleTwoFragmentToPublishVehicleOneFragment( id = -1 ) )
             }
             binding.btnClose.id->{
-                vehicleData = VehicleModel()
-                findNavController().navigate( PublishVehicleTwoFragmentDirections.actionPublishVehicleTwoFragmentToCartFragment() )
+                if(vehicleData.edit){
+                    vehicleData = VehicleModel()
+                    findNavController().navigate( PublishVehicleTwoFragmentDirections.actionPublishVehicleTwoFragmentToMyCarsFragment() )
+                } else{
+                    findNavController().navigate( PublishVehicleTwoFragmentDirections.actionPublishVehicleTwoFragmentToCartFragment() )
+                }
+
             }
             binding.btnAddImage.id->{
                 pickMedia.launch( PickVisualMediaRequest( PickVisualMedia.ImageOnly ) )
@@ -112,10 +130,18 @@ class PublishVehicleTwoFragment : Fragment( R.layout.fragment_publish_vehicle_2 
             binding.btnPublish.id->{
                 if( shouldCreate() ){
                     binding.btnPublish.startAnimation()
-                    vehicleData.images = getImagesSelected( imagesSelectedList )
-                    vehicleData.owner = currentSession.id
 
-                    createVehicle( vehicleData )
+
+                    vehicleData.owner = currentSession.id
+                    if(!vehicleData.edit){
+                        vehicleData.images = getImagesSelected( imagesSelectedList )
+                        createVehicle( vehicleData )
+                    }
+                    else{
+                        vehicleData.newImages = getImagesSelected( imagesSelectedList )
+                        vehicleData.deleted = imagesDeleted
+                        updateVehicle( vehicleData )
+                    }
                 }else{
                     Toast.makeText(context, "You must select at least one image ${imagesSelectedList.size}", Toast.LENGTH_SHORT).show()
                 }
@@ -140,6 +166,9 @@ class PublishVehicleTwoFragment : Fragment( R.layout.fragment_publish_vehicle_2 
         val position = currentIndexSelected
         var newPosition : Int
 
+        if( imagesSelectedList[ position ].id != -1 ){
+            imagesDeleted.add( imagesSelectedList[ position ].id )
+        }
 
         if( (imagesSelectedList.size - 1) <= 0 ){
             binding.ibRemoveImage.visibility = View.GONE
@@ -165,17 +194,16 @@ class PublishVehicleTwoFragment : Fragment( R.layout.fragment_publish_vehicle_2 
     private fun shouldCreate() : Boolean{
         return imagesSelectedList.size > 0
     }
-
     private fun getImagesSelected(imagesSelected : List<ImageSelectedModel>) : List<ImageModel>{
         val newImages = mutableListOf<ImageModel>()
 
         imagesSelected.forEach{img ->
-            newImages.add( ImageModel(0, image =  img.image) )
+            if(vehicleData.edit && img.id == -1) newImages.add( ImageModel(0, image =  img.image) )
+            else if(!vehicleData.edit) newImages.add( ImageModel(0, image =  img.image) )
         }
 
         return newImages.toList()
     }
-
     private fun createVehicle( vehicleModel: VehicleModel ){
         CoroutineScope( Dispatchers.IO ).launch {
             try{
@@ -193,5 +221,30 @@ class PublishVehicleTwoFragment : Fragment( R.layout.fragment_publish_vehicle_2 
                 }
             }
         }
+    }
+
+    private fun updateVehicle(vehicleModel: VehicleModel) {
+        CoroutineScope( Dispatchers.IO ).launch{
+            try{
+                APIService().updateVehicle( vehicleModel )
+                activity?.runOnUiThread {
+                    binding.btnPublish.revertAnimation()
+                    Toast.makeText(context, "Vehicle has been created", Toast.LENGTH_SHORT).show()
+                }
+            } catch ( e : Exception ){
+                Log.e("API Error", e.toString())
+            }
+        }
+    }
+    private fun loadImages(imgList : List<ImageModel>){
+
+        imgList.forEach { img ->
+            val bytes = Base64.decode(img.image, Base64.DEFAULT)
+            val bmp = BitmapFactory.decodeByteArray( bytes, 0, bytes.size )
+            imagesSelectedList.add( ImageSelectedModel( img.id, img.image, bmp ) )
+        }
+        currentIndexSelected = 0
+        binding.ivCurrentSelected.setImageBitmap( imagesSelectedList[0].bitmap )
+        imagesSelectedAdapter.notifyItemRangeInserted( 0, imagesSelectedList.size )
     }
 }

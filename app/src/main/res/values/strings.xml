@@ -65,6 +65,12 @@
     <string name="search_now">search now</string>
     <string name="rent">rent</string>
     <string name="best_sellers">Best Sellers</string>
+    <string name="edit">edit</string>
+    <string name="delete">delete</string>
+    <string name="my_published_cars">My Published Cars</string>
+    <string name="published">published</string>
+    <string name="drafts">drafts</string>
+    <string name="looking_for_a_car">looking for a car?</string>
 
 
 </resources>

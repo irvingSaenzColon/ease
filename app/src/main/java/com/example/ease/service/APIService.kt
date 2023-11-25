@@ -4,6 +4,7 @@ package com.example.ease.service
 import com.example.ease.helper.RetrofitHelper
 import com.example.ease.model.AuthenticateModel
 import com.example.ease.model.CategoriesResponse
+import com.example.ease.model.SearchModel
 import com.example.ease.model.SecurityModel
 import com.example.ease.model.SecurityResponse
 import com.example.ease.model.UserModel
@@ -131,9 +132,38 @@ class APIService {
         }
     }
 
+    suspend fun searchVehicles( searchModel: SearchModel ) : VehiclesResponse{
+        return withContext( Dispatchers.IO ){
+            val response = retrofit.create( VehicleClient::class.java ).searchVehicles( searchModel )
+
+            if(!response.isSuccessful) throw Exception( ErrorUtils().parseApiError( response ) )
+
+            response.body() ?: VehiclesResponse()        }
+    }
+
     suspend fun createVehicle( vehicleModel: VehicleModel ) : VehicleResponse{
         return withContext( Dispatchers.IO ){
             val response = retrofit.create( VehicleClient::class.java ).createVehicle( vehicleModel )
+
+            if(!response.isSuccessful) throw Exception( ErrorUtils().parseApiError( response ) )
+
+            response.body() ?: VehicleResponse()
+        }
+    }
+
+    suspend fun updateVehicle( vehicleModel: VehicleModel ) : VehicleResponse{
+        return withContext( Dispatchers.IO ){
+            val response = retrofit.create( VehicleClient::class.java ).updateVehicle( vehicleModel )
+
+            if(!response.isSuccessful) throw Exception( ErrorUtils().parseApiError( response ) )
+
+            response.body() ?: VehicleResponse()
+        }
+    }
+
+    suspend fun deleteVehicle( id: String ) : VehicleResponse{
+        return withContext( Dispatchers.IO ){
+            val response = retrofit.create( VehicleClient::class.java ).deleteVehicle( id )
 
             if(!response.isSuccessful) throw Exception( ErrorUtils().parseApiError( response ) )
 

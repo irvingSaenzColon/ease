@@ -23,6 +23,7 @@ class CarsShoppingActivity : AppCompatActivity() {
         setContentView( binding.root )
 
         currentSession = session.getSession()
+        vehicleData = VehicleModel()
 
         val navController = findNavController( R.id.shoppingHostFragment )
         binding.bottomNavigation.setupWithNavController( navController )

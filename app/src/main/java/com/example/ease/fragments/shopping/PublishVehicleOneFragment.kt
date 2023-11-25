@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.ease.R
 import com.example.ease.activities.CarsShoppingActivity.Companion.vehicleData
 import com.example.ease.databinding.FragmentPublishVehicle1Binding
@@ -31,6 +32,7 @@ import kotlinx.coroutines.launch
 class PublishVehicleOneFragment : Fragment(R.layout.fragment_publish_vehicle_1), View.OnClickListener, AdapterView.OnItemClickListener {
     private var _binding : FragmentPublishVehicle1Binding ? = null
     private val binding get() = _binding!!
+    private val args : PublishVehicleOneFragmentArgs by navArgs()
     private var model : String = ""
 
 
@@ -49,8 +51,16 @@ class PublishVehicleOneFragment : Fragment(R.layout.fragment_publish_vehicle_1),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val id = args.id
+
+        if(id != -1){
+            getVehicle( id )
+        } else{
+            fillData()
+        }
+
         getCategories()
-        fillData()
+
     }
 
 
@@ -66,7 +76,12 @@ class PublishVehicleOneFragment : Fragment(R.layout.fragment_publish_vehicle_1),
                 )
                 if(shouldContinue( vehicleModel )){
                     binding.tvAutoComplete.error = null
-                    vehicleData = vehicleModel
+
+                    vehicleData.name = vehicleModel.name
+                    vehicleData.price = vehicleModel.price
+                    vehicleData.model = vehicleModel.model
+                    vehicleData.info = vehicleModel.info
+
                     findNavController().navigate( PublishVehicleOneFragmentDirections.actionPublishVehicleOneFragmentToPublishVehicleTwoFragment() )
                 } else{
                     val validation = CarFieldStateOne(
@@ -89,7 +104,8 @@ class PublishVehicleOneFragment : Fragment(R.layout.fragment_publish_vehicle_1),
 
             }
             binding.ibClose.id->{
-                findNavController().navigate( PublishVehicleOneFragmentDirections.actionPublishVehicleOneFragmentToCartFragment() )
+                vehicleData = VehicleModel()
+                findNavController().popBackStack()
             }
         }
     }
@@ -100,13 +116,29 @@ class PublishVehicleOneFragment : Fragment(R.layout.fragment_publish_vehicle_1),
     }
 
     private fun fillData(){
-        binding.etName.setText( vehicleData.name )
-        binding.etPrice.setText( vehicleData.price )
-        binding.etInfo.setText( vehicleData.info )
-        model = vehicleData.model
-        binding.tvAutoComplete.setText( vehicleData.model )
+        activity?.runOnUiThread {
+            binding.etName.setText( vehicleData.name )
+            binding.etPrice.setText( vehicleData.price )
+            binding.etInfo.setText( vehicleData.info )
+            model = vehicleData.model
+            binding.tvAutoComplete.setText( vehicleData.model )
+        }
     }
 
+    private fun getVehicle(id : Int){
+        CoroutineScope( Dispatchers.IO ).launch{
+            try{
+                val response = APIService().getVehicle( id.toString() )
+                if ( response.body != null ){
+                    vehicleData = response.body
+                    vehicleData.edit = true
+                    fillData()
+                }
+            } catch ( e : Exception ){
+                Log.e("API Error", e.message ?: "")
+            }
+        }
+    }
     private fun getCategories(){
         CoroutineScope( Dispatchers.IO ).launch {
             try{
