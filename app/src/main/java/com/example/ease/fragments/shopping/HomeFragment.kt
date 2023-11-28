@@ -13,6 +13,7 @@ import com.example.ease.adapters.VehicleAdapter
 import com.example.ease.databinding.FragmentHomeBinding
 import com.example.ease.model.VehicleModel
 import com.example.ease.service.APIService
+import com.example.ease.util.showBottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,6 +38,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater)
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showBottomNavigationView()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

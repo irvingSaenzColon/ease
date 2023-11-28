@@ -23,6 +23,7 @@ import com.example.ease.model.VehicleModel
 import com.example.ease.service.APIService
 import com.example.ease.util.CarFieldStateOne
 import com.example.ease.util.RegisterValidation
+import com.example.ease.util.hideBottomNavigationView
 import com.example.ease.util.validateDecimal
 import com.example.ease.util.validateSimple
 import kotlinx.coroutines.CoroutineScope
@@ -41,6 +42,7 @@ class PublishVehicleOneFragment : Fragment(R.layout.fragment_publish_vehicle_1),
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        hideBottomNavigationView()
         _binding = FragmentPublishVehicle1Binding.inflate( inflater, container, false )
 
         binding.btnNext.setOnClickListener( this )

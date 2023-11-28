@@ -11,12 +11,15 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.ease.R
+import com.example.ease.activities.CarsShoppingActivity
 import com.example.ease.activities.CarsShoppingActivity.Companion.currentSession
 import com.example.ease.adapters.MyCarsAdApter
 import com.example.ease.databinding.FragmentMyPublishedCarsBinding
 import com.example.ease.model.VehicleModel
 import com.example.ease.prefs.SessionPreference
 import com.example.ease.service.APIService
+import com.example.ease.util.hideBottomNavigationView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,6 +36,8 @@ class MyPublishedCarsFragment : Fragment( R.layout.fragment_my_published_cars ) 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        hideBottomNavigationView()
+
         _binding = FragmentMyPublishedCarsBinding.inflate( inflater, container, false )
         return binding.root
     }

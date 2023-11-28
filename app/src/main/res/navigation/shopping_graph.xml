@@ -33,6 +33,9 @@
         <action
             android:id="@+id/action_profileFragment_to_myCarsFragment"
             app:destination="@id/myCarsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
     </fragment>
     <fragment
         android:id="@+id/carFragment"
@@ -122,6 +125,33 @@
         <action
             android:id="@+id/action_myCarsFragment_to_publishVehicleOneFragment"
             app:destination="@id/publishVehicleOneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="com.example.ease.fragments.shopping.PaymentFragment"
+        android:label="PaymentFragment"
+        tools:layout="@layout/fragment_payment"
+        >
+        <action
+            android:id="@+id/action_paymentFragment_to_addPaymentFragment"
+            app:destination="@id/addPaymentFragment" />
+        <action
+            android:id="@+id/action_paymentFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPaymentFragment"
+        android:name="com.example.ease.fragments.shopping.AddPaymentFragment"
+        android:label="AddPaymentFragment"
+        tools:layout="@layout/fragment_add_payment"
+        >
+        <argument
+            android:name="id"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_addPaymentFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
     </fragment>
 
 </navigation>

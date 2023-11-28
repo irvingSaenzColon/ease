@@ -71,6 +71,11 @@
     <string name="published">published</string>
     <string name="drafts">drafts</string>
     <string name="looking_for_a_car">looking for a car?</string>
+    <string name="payment">Payment</string>
+    <string name="number">number</string>
+    <string name="expire_date">expire date</string>
+    <string name="zip_code">zip code</string>
+    <string name="add_payment">add payment</string>
 
 
 </resources>

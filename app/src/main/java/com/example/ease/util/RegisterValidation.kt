@@ -34,3 +34,12 @@ data class CarFieldStateOne(
     val price : RegisterValidation,
     val model : RegisterValidation
 )
+
+
+data class PaymentState(
+    val name : RegisterValidation,
+    val number : RegisterValidation,
+    val expire : RegisterValidation,
+    val zip : RegisterValidation
+)
+

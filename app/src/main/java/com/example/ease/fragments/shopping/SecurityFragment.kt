@@ -17,6 +17,7 @@ import com.example.ease.model.SecurityModel
 import com.example.ease.service.APIService
 import com.example.ease.util.PasswordFieldsState
 import com.example.ease.util.RegisterValidation
+import com.example.ease.util.hideBottomNavigationView
 import com.example.ease.util.validateConfirmPassword
 import com.example.ease.util.validatePassword
 import com.example.ease.util.validateSimple
@@ -33,6 +34,7 @@ class SecurityFragment : Fragment( R.layout.fragment_security ), View.OnClickLis
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        hideBottomNavigationView()
         _binding = FragmentSecurityBinding.inflate( inflater, container, false )
 
         binding.btnSave.setOnClickListener( this )

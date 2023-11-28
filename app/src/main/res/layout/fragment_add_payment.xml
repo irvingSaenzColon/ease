@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/ibReturn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_return"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="@id/guidelineTop"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/h4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/payment"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintStart_toEndOf="@id/ibReturn"
+        app:layout_constraintTop_toTopOf="@id/guidelineTop" />
+
+    <EditText
+        android:id="@+id/etName"
+        style="@style/editText"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/editTextHeight"
+        android:layout_marginTop="50dp"
+        android:hint="@string/name"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <EditText
+        android:id="@+id/etNumber"
+        style="@style/editText"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/editTextHeight"
+        android:layout_marginTop="24dp"
+        android:hint="@string/number"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/etName" />
+
+    <EditText
+        android:id="@+id/etExpireDate"
+        style="@style/editText"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/editTextHeight"
+        android:layout_marginTop="24dp"
+        android:hint="@string/expire_date"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/etNumber" />
+
+    <EditText
+        android:id="@+id/etZipCode"
+        style="@style/editText"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/editTextHeight"
+        android:layout_marginTop="24dp"
+        android:hint="@string/zip_code"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/etExpireDate" />
+
+    <br.com.simplepass.loadingbutton.customViews.CircularProgressButton
+        android:id="@+id/btnCreate"
+        style="@style/purpleButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/medium_button_height"
+        android:layout_marginTop="50dp"
+        android:text="@string/add_payment"
+        app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+        app:layout_constraintStart_toStartOf="@id/guidelineStart"
+        app:layout_constraintTop_toBottomOf="@id/etZipCode" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="20dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+</androidx.constraintlayout.widget.ConstraintLayout>

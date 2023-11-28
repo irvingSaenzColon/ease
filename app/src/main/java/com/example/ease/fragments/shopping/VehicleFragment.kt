@@ -17,6 +17,7 @@ import com.example.ease.databinding.FragmentVehicleBinding
 import com.example.ease.model.ImageModel
 import com.example.ease.model.VehicleModel
 import com.example.ease.service.APIService
+import com.example.ease.util.hideBottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,6 +41,7 @@ class VehicleFragment : Fragment( R.layout.fragment_vehicle), View.OnClickListen
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        hideBottomNavigationView()
         _binding = FragmentVehicleBinding.inflate( inflater, container, false )
 
         binding.ibReturn.setOnClickListener( this )

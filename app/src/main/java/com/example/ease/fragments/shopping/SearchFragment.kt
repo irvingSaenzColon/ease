@@ -17,6 +17,7 @@ import com.example.ease.model.CategoryModel
 import com.example.ease.model.SearchModel
 import com.example.ease.model.VehicleModel
 import com.example.ease.service.APIService
+import com.example.ease.util.showBottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -45,6 +46,11 @@ class SearchFragment : Fragment(R.layout.fragment_search), SearchView.OnQueryTex
         binding.swSearch.setOnQueryTextListener( this )
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showBottomNavigationView()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

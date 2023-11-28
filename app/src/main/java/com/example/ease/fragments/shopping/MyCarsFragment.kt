@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.ease.R
 import com.example.ease.adapters.MyCarsViewPagerAdapter
 import com.example.ease.databinding.FragmentMyCarsBinding
+import com.example.ease.util.hideBottomNavigationView
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MyCarsFragment : Fragment( R.layout.fragment_my_cars ), View.OnClickListener  {
@@ -20,6 +21,7 @@ class MyCarsFragment : Fragment( R.layout.fragment_my_cars ), View.OnClickListen
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        hideBottomNavigationView()
         _binding = FragmentMyCarsBinding.inflate( inflater, container, false )
         binding.ibReturn.setOnClickListener( this )
         return binding.root

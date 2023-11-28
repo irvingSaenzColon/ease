@@ -13,6 +13,7 @@ import com.example.ease.adapters.VehicleAdapter
 import com.example.ease.databinding.FragmentCarBinding
 import com.example.ease.model.VehicleModel
 import com.example.ease.service.APIService
+import com.example.ease.util.showBottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,6 +35,11 @@ class CarFragment : Fragment(R.layout.fragment_car), View.OnClickListener{
         binding.btnAddVehicle.setOnClickListener( this )
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showBottomNavigationView()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

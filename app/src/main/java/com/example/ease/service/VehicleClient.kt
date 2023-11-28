@@ -42,4 +42,5 @@ interface VehicleClient {
 
     @DELETE("vehicle/{id}")
     suspend fun deleteVehicle( @Path("id") id: String ) : Response< VehicleResponse >
+
 }

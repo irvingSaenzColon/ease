@@ -16,6 +16,7 @@ import com.example.ease.activities.CarsShoppingActivity.Companion.currentSession
 import com.example.ease.activities.LoginRegisterActivity
 import com.example.ease.databinding.FragmentProfileSettingsBinding
 import com.example.ease.model.UserModel
+import com.example.ease.util.showBottomNavigationView
 
 class ProfileSettingsFragment : Fragment(R.layout.fragment_profile_settings), View.OnClickListener {
     private var _binding : FragmentProfileSettingsBinding ? = null
@@ -32,8 +33,14 @@ class ProfileSettingsFragment : Fragment(R.layout.fragment_profile_settings), Vi
         binding.cvPublishedCars.setOnClickListener( this )
         binding.cvProfileSettings.setOnClickListener( this )
         binding.cvSecurity.setOnClickListener( this )
+        binding.cvPayMethod.setOnClickListener( this )
 
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showBottomNavigationView()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,6 +71,9 @@ class ProfileSettingsFragment : Fragment(R.layout.fragment_profile_settings), Vi
             }
             binding.cvPublishedCars.id->{
                 findNavController().navigate( ProfileSettingsFragmentDirections.actionProfileFragmentToMyCarsFragment() )
+            }
+            binding.cvPayMethod.id -> {
+                findNavController().navigate( ProfileSettingsFragmentDirections.actionProfileFragmentToPaymentFragment() )
             }
         }
     }

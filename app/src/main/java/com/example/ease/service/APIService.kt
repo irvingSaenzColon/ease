@@ -3,7 +3,8 @@ package com.example.ease.service
 
 import com.example.ease.helper.RetrofitHelper
 import com.example.ease.model.AuthenticateModel
-import com.example.ease.model.CategoriesResponse
+import com.example.ease.model.PaymentModel
+import com.example.ease.model.response.CategoriesResponse
 import com.example.ease.model.SearchModel
 import com.example.ease.model.SecurityModel
 import com.example.ease.model.SecurityResponse
@@ -12,6 +13,8 @@ import com.example.ease.model.UserResponse
 import com.example.ease.model.VehicleModel
 import com.example.ease.model.VehicleResponse
 import com.example.ease.model.VehiclesResponse
+import com.example.ease.model.response.PaymentResponse
+import com.example.ease.model.response.PaymentsResponse
 import com.example.ease.util.ErrorUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -61,7 +64,7 @@ class APIService {
 
     //Category Section
 
-    suspend fun getCategories() : CategoriesResponse{
+    suspend fun getCategories() : CategoriesResponse {
         return withContext( Dispatchers.IO ){
             val response = retrofit.create( CategoryClient::class.java ).getCategories( )
 
@@ -170,4 +173,47 @@ class APIService {
             response.body() ?: VehicleResponse()
         }
     }
+
+    //Payments
+
+    suspend fun getPayment( id : String ) : PaymentResponse{
+        return withContext( Dispatchers.IO ){
+            val response = retrofit.create( PaymentClient::class.java ).getPayment( id )
+
+            if(!response.isSuccessful) throw Exception( ErrorUtils().parseApiError( response ) )
+
+            response.body() ?: PaymentResponse()
+        }
+    }
+
+    suspend fun getAllMyPayments( id : String ) : PaymentsResponse{
+        return withContext( Dispatchers.IO ){
+            val response = retrofit.create( PaymentClient::class.java ).getMyPayments( id )
+
+            if(!response.isSuccessful) throw Exception( ErrorUtils().parseApiError( response ) )
+
+            response.body() ?: PaymentsResponse()
+        }
+    }
+    suspend fun  createPayment( paymentModel: PaymentModel ) : PaymentResponse{
+        return withContext( Dispatchers.IO ){
+            val response = retrofit.create( PaymentClient::class.java ).createPayment( paymentModel )
+
+            if(!response.isSuccessful) throw Exception( ErrorUtils().parseApiError( response ) )
+
+            response.body() ?: PaymentResponse()
+        }
+    }
+
+    suspend fun updatePayment( paymentModel: PaymentModel ) : PaymentResponse{
+        return withContext( Dispatchers.IO ){
+            val response = retrofit.create( PaymentClient::class.java ).updatePayment( paymentModel )
+
+            if(!response.isSuccessful) throw Exception( ErrorUtils().parseApiError( response ) )
+
+            response.body() ?: PaymentResponse()
+        }
+    }
+
+
 }

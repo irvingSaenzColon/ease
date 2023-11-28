@@ -18,6 +18,10 @@ fun decimalFormat( decimal : String ) : Boolean{
     val regex = "^([0-9]+)(\\.)*([0-9])*\$".toRegex()
     return regex.matches( decimal )
 }
+fun numberFormat( number : String ) : Boolean{
+    val regex = "^([0-9]+)$".toRegex()
+    return regex.matches( number )
+}
 
 fun validateName( name : String ) : RegisterValidation{
     if(name.isEmpty())
@@ -79,7 +83,15 @@ fun validateConfirmPassword(password : String, confirmPassword : String) : Regis
 
     return RegisterValidation.Success
 }
+fun validateNumber(number : String) : RegisterValidation{
+    if(number.isEmpty())
+        return RegisterValidation.Failed("Number can't be empty")
 
+    if(!numberFormat( number ))
+        return RegisterValidation.Failed("This field only accepts numbers")
+
+    return RegisterValidation.Success
+}
 fun validateDecimal(decimal: String) : RegisterValidation{
     if(decimal.isEmpty())
         return RegisterValidation.Failed("Password can't be empty")

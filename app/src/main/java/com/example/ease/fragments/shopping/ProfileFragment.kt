@@ -26,15 +26,18 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.example.ease.EaseApplication.Companion.session
 import com.example.ease.R
+import com.example.ease.activities.CarsShoppingActivity
 import com.example.ease.activities.CarsShoppingActivity.Companion.currentSession
 import com.example.ease.databinding.FragmentProfileBinding
 import com.example.ease.model.UserModel
 import com.example.ease.service.APIService
 import com.example.ease.util.RegisterFieldsStateOne
 import com.example.ease.util.RegisterValidation
+import com.example.ease.util.hideBottomNavigationView
 import com.example.ease.util.validateDate
 import com.example.ease.util.validateName
 import com.example.ease.util.validateNickname
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -56,6 +59,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), View.OnClickListene
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        hideBottomNavigationView()
         _binding = FragmentProfileBinding.inflate( inflater, container, false )
 
         binding.btnSave.setOnClickListener( this )
