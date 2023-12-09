@@ -7,5 +7,6 @@ data class PaymentModel(
     var expire : String,
     var zip : String,
     var ownerId : Int,
-    var owner : String
+    var owner : String,
+    var selected : Boolean = false
 )

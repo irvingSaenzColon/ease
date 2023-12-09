@@ -7,13 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.example.ease.R
+import com.example.ease.activities.CarsShoppingActivity.Companion.currentSession
 import com.example.ease.adapters.ImageAdapter
 import com.example.ease.databinding.FragmentVehicleBinding
+import com.example.ease.model.FavoriteModel
 import com.example.ease.model.ImageModel
 import com.example.ease.model.VehicleModel
 import com.example.ease.service.APIService
@@ -34,6 +37,7 @@ class VehicleFragment : Fragment( R.layout.fragment_vehicle), View.OnClickListen
                                         LinearLayout.LayoutParams.WRAP_CONTENT,
                                         LinearLayout.LayoutParams.WRAP_CONTENT
                                     ).apply { setMargins(8, 0, 8, 0) }
+    private var favoriteAction : String = "m"
 
 
     override fun onCreateView(
@@ -45,21 +49,40 @@ class VehicleFragment : Fragment( R.layout.fragment_vehicle), View.OnClickListen
         _binding = FragmentVehicleBinding.inflate( inflater, container, false )
 
         binding.ibReturn.setOnClickListener( this )
+        binding.btnBookMark.setOnClickListener( this )
+        binding.btnRent.setOnClickListener( this )
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val id = args.id
+        val id = args.id ?: return
+        val userId = currentSession.id
+        val favoriteModel = FavoriteModel( carBodyId = 0, userId = userId, carId = id.toInt(), action = "")
 
-        if( id != null ) getVehicleData( id )
+        getVehicleData( id )
+
+        isFavoriteVehicle( favoriteModel )
     }
 
     override fun onClick(view: View?) {
         when(view?.id){
+            binding.btnBookMark.id->{
+                val id = args.id ?: return
+                val userId = currentSession.id
+
+                val favoriteModel = FavoriteModel( carBodyId = 0,  userId = userId, carId = id.toInt(), action = favoriteAction)
+
+                favoriteResolver( favoriteModel )
+            }
             binding.ibReturn.id->{
                 findNavController().popBackStack()
+            }
+            binding.btnRent.id -> {
+                val vehicleId = args.id
+
+                findNavController().navigate( VehicleFragmentDirections.actionVehicleFragmentToCheckoutFragment( id=  vehicleId ) )
             }
         }
     }
@@ -71,7 +94,7 @@ class VehicleFragment : Fragment( R.layout.fragment_vehicle), View.OnClickListen
 
                 if(response.body != null) vehicleData = response.body
                 activity?.runOnUiThread {
-                    if( vehicleData != null )
+                    if( vehicleData.name.isNotEmpty() )
                         fillData( vehicleData )
                 }
             } catch (e : Exception){
@@ -80,10 +103,49 @@ class VehicleFragment : Fragment( R.layout.fragment_vehicle), View.OnClickListen
         }
     }
 
+    private fun isFavoriteVehicle( favoriteModel: FavoriteModel ){
+        CoroutineScope( Dispatchers.IO ).launch {
+            try{
+                val response = APIService().getSpecificFavorite( favoriteModel )
+                favoriteAction = if(response.body!!.name.isNotEmpty()) "u"  else "m"
+                Log.i("API Response", "Retornó algo")
+
+            } catch ( e : Exception ){
+                Log.e("Error API", e.message ?: "Algo pasó pero no sabemos qué")
+            }
+        }
+    }
+
+    private fun favoriteResolver( favoriteModel: FavoriteModel ){
+        CoroutineScope( Dispatchers.IO ).launch{
+            try{
+                APIService().markCar( favoriteModel )
+
+                activity?.runOnUiThread {
+                    var message = ""
+
+                    if(favoriteAction == "u"){
+                        favoriteAction = "m"
+                        message = "Se ha eliminado el automovil a favoritos"
+
+                    } else{
+                        favoriteAction ="u"
+                        message = "Se ha agregado el automovil a favoritos"
+                    }
+                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                }
+            } catch ( e : Exception){
+                Log.e("API Error", e.message ?: "")
+            }
+        }
+    }
+
     private fun fillData(vehicleModel: VehicleModel){
+        val vehiclePrice = "$ ${vehicleModel.price}"
+
         binding.tvName.text = vehicleModel.name
         binding.tvModel.text = vehicleModel.model
-        binding.tvPrice.text = "$ ${vehicleModel.price}"
+        binding.tvPrice.text = vehiclePrice
         binding.tvDesc.text = vehicleModel.info
 
         initViewPager( vehicleModel.images )

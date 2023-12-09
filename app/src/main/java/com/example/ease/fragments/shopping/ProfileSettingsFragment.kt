@@ -34,6 +34,8 @@ class ProfileSettingsFragment : Fragment(R.layout.fragment_profile_settings), Vi
         binding.cvProfileSettings.setOnClickListener( this )
         binding.cvSecurity.setOnClickListener( this )
         binding.cvPayMethod.setOnClickListener( this )
+        binding.cvFavorites.setOnClickListener( this )
+        binding.cvRentedCars.setOnClickListener( this )
 
         return binding.root
     }
@@ -45,7 +47,7 @@ class ProfileSettingsFragment : Fragment(R.layout.fragment_profile_settings), Vi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //TODO : Load data from preferences
+
         Log.i("Session sets", currentSession.id.toString())
         displayImage( currentSession )
         binding.tvUserEmail.text = currentSession.email
@@ -74,6 +76,12 @@ class ProfileSettingsFragment : Fragment(R.layout.fragment_profile_settings), Vi
             }
             binding.cvPayMethod.id -> {
                 findNavController().navigate( ProfileSettingsFragmentDirections.actionProfileFragmentToPaymentFragment() )
+            }
+            binding.cvFavorites.id -> {
+                findNavController().navigate( ProfileSettingsFragmentDirections.actionProfileFragmentToFavoriteFragment() )
+            }
+            binding.cvRentedCars.id -> {
+                findNavController().navigate( ProfileSettingsFragmentDirections.actionProfileFragmentToOrdersFragment() )
             }
         }
     }

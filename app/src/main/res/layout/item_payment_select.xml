@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvPaymentCard"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginVertical="8dp"
+    android:layout_marginHorizontal="8dp"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    android:elevation="10dp"
+    app:cardElevation="10dp"
+    app:cardCornerRadius="5dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="8dp"
+        android:layout_marginHorizontal="16dp"
+        >
+        <TextView
+            android:id="@+id/tvPaymentName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Tarjetazo chido"
+            android:fontFamily="@font/poppins_thin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+        <TextView
+            android:id="@+id/tvPaymentNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="4569"
+            app:layout_constraintTop_toBottomOf="@id/tvPaymentName"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

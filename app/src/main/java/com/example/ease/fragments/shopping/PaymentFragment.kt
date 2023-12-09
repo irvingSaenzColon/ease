@@ -11,15 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ease.R
-import com.example.ease.activities.CarsShoppingActivity
 import com.example.ease.activities.CarsShoppingActivity.Companion.currentSession
 import com.example.ease.adapters.PaymentEditAdapter
 import com.example.ease.databinding.FragmentPaymentBinding
 import com.example.ease.model.PaymentModel
-import com.example.ease.model.VehicleModel
 import com.example.ease.service.APIService
 import com.example.ease.util.hideBottomNavigationView
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -66,12 +63,31 @@ class PaymentFragment : Fragment( R.layout.fragment_payment ), View.OnClickListe
             try{
                 val response = APIService().getAllMyPayments( id )
                 if(response.body.isNotEmpty()){
+                    paymentList.clear()
                     paymentList.addAll( response.body )
                     activity?.runOnUiThread {
                         initRecyclerView()
                     }
                 }
             } catch (e: Exception){
+                activity?.runOnUiThread {
+                    Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+                    Log.i("API Error", e.message ?: "")
+                }
+            }
+        }
+    }
+
+    private fun onDeletePayment(id : String, index : Int){
+        CoroutineScope( Dispatchers.IO ).launch {
+            try{
+                APIService().deletePayment( id )
+                activity?.runOnUiThread {
+                    paymentList.removeAt( index )
+                    paymentsAdapter.notifyDataSetChanged()
+                    Toast.makeText(context, "Se ha eliminado el método de pago", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e : Exception){
                 activity?.runOnUiThread {
                     Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
                 }
@@ -97,6 +113,7 @@ class PaymentFragment : Fragment( R.layout.fragment_payment ), View.OnClickListe
                     true
                 }
                 R.id.iDeleteQuote -> {
+                    onDeletePayment( paymentModel.id, index )
                     true
                 }
                 else -> true

@@ -76,6 +76,14 @@
     <string name="expire_date">expire date</string>
     <string name="zip_code">zip code</string>
     <string name="add_payment">add payment</string>
+    <string name="my_favorite_cars">My Favorite Cars</string>
+    <string name="favorite_cars">favorites cars</string>
+    <string name="tvOrderNumber">Ordern #</string>
+    <string name="car">Car</string>
+    <string name="total">Total</string>
+    <string name="checkout">Checkout</string>
+    <string name="return_date">return date</string>
+    <string name="tvOrderDetail">Order Detail</string>
 
 
 </resources>

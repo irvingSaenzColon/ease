@@ -6,10 +6,8 @@ import com.example.ease.model.VehicleResponse
 import com.example.ease.model.VehiclesResponse
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
-import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface VehicleClient {
@@ -37,10 +35,10 @@ interface VehicleClient {
     @POST("vehicle/create")
     suspend fun createVehicle( @Body vehicleModel: VehicleModel ) : Response< VehicleResponse >
 
-    @PUT("vehicle/update")
+    @POST("vehicle/update")
     suspend fun updateVehicle( @Body vehicleModel: VehicleModel ) : Response< VehicleResponse >
 
-    @DELETE("vehicle/{id}")
+    @GET("vehicle/{id}")
     suspend fun deleteVehicle( @Path("id") id: String ) : Response< VehicleResponse >
 
 }

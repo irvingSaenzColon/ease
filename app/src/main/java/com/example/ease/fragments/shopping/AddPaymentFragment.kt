@@ -1,6 +1,7 @@
 package com.example.ease.fragments.shopping
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,6 @@ import com.example.ease.model.PaymentModel
 import com.example.ease.service.APIService
 import com.example.ease.util.PaymentState
 import com.example.ease.util.RegisterValidation
-import com.example.ease.util.validateDecimal
 import com.example.ease.util.validateName
 import com.example.ease.util.validateNumber
 import com.example.ease.util.validateSimple
@@ -96,10 +96,12 @@ class AddPaymentFragment  : Fragment( R.layout.fragment_add_payment ), View.OnCl
                     Toast.makeText(context, "Se ha creado un nuevo método de pago", Toast.LENGTH_SHORT).show()
                     binding.btnCreate.revertAnimation()
                     cleanInput()
+                    findNavController().popBackStack()
                 }
             } catch (e : Exception){
                 activity?.runOnUiThread {
                     Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+                    Log.e("API Error", e?.message ?:  "")
                     binding.btnCreate.revertAnimation()
                 }
             }

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ease.R
@@ -72,7 +73,7 @@ class SearchFragment : Fragment(R.layout.fragment_search), SearchView.OnQueryTex
     }
 
     private fun onClickVehicle(vehicleModel: VehicleModel){
-     //   findNavController().navigate( HomeFragmentDirections.actionHomeFragmentToVehicleFragment( vehicleModel.id.toString() ) )
+     findNavController().navigate( SearchFragmentDirections.actionSearchFragmentToVehicleFragment( id = vehicleModel.id.toString() ) )
     }
 
     private fun onSelectCategory(index: Int){

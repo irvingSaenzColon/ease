@@ -110,11 +110,12 @@ class PublishVehicleTwoFragment : Fragment( R.layout.fragment_publish_vehicle_2 
     override fun onClick(view: View?) {
         when( view?.id ){
             binding.btnPrevious.id->{
+
                 findNavController().navigate( PublishVehicleTwoFragmentDirections.actionPublishVehicleTwoFragmentToPublishVehicleOneFragment( id = -1 ) )
             }
             binding.btnClose.id->{
                 if(vehicleData.edit){
-                    vehicleData = VehicleModel()
+
                     findNavController().navigate( PublishVehicleTwoFragmentDirections.actionPublishVehicleTwoFragmentToMyCarsFragment() )
                 } else{
                     findNavController().navigate( PublishVehicleTwoFragmentDirections.actionPublishVehicleTwoFragmentToCartFragment() )
@@ -211,7 +212,9 @@ class PublishVehicleTwoFragment : Fragment( R.layout.fragment_publish_vehicle_2 
 
                 activity?.runOnUiThread {
                     binding.btnPublish.revertAnimation()
+                    vehicleData = VehicleModel()
                     Toast.makeText(context, "Vehicle has been created", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate( PublishVehicleTwoFragmentDirections.actionPublishVehicleTwoFragmentToCartFragment() )
                 }
             } catch (e : Exception){
                 activity?.runOnUiThread {
