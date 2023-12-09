@@ -74,6 +74,7 @@ class VehicleFragment : Fragment( R.layout.fragment_vehicle), View.OnClickListen
 
                 val favoriteModel = FavoriteModel( carBodyId = 0,  userId = userId, carId = id.toInt(), action = favoriteAction)
 
+                Log.i("Request", favoriteModel.toString())
                 favoriteResolver( favoriteModel )
             }
             binding.ibReturn.id->{
