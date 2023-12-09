@@ -39,6 +39,8 @@ class MyPublishedCarsFragment : Fragment( R.layout.fragment_my_published_cars ) 
         hideBottomNavigationView()
 
         _binding = FragmentMyPublishedCarsBinding.inflate( inflater, container, false )
+        initRecyclerView()
+
         return binding.root
     }
 
@@ -63,7 +65,13 @@ class MyPublishedCarsFragment : Fragment( R.layout.fragment_my_published_cars ) 
                 val response = APIService().getMyVehicles( userId )
                 if(response.body.isNotEmpty()) myCarsList.addAll( response.body )
                 activity?.runOnUiThread {
-                    initRecyclerView()
+
+                    myCarsList.clear()
+                    myCarsList.addAll(0, response.body)
+                    myCarsAdapter.notifyDataSetChanged()
+
+                    binding.pbLoader.visibility = View.GONE
+                    toggleEmptyPlaceholder( myCarsList.size > 0 )
                 }
             } catch ( e :Exception ){
                 Log.e("API Error", e.toString())
@@ -100,11 +108,18 @@ class MyPublishedCarsFragment : Fragment( R.layout.fragment_my_published_cars ) 
                     myCarsList.removeAt( index )
                     myCarsAdapter.notifyDataSetChanged()
                     Toast.makeText(context, "Vehicle removed", Toast.LENGTH_SHORT).show()
+
+                    toggleEmptyPlaceholder( myCarsList.size > 0 )
                 }
             } catch ( e : Exception ){
                 Log.e("API Error", e.toString())
             }
         }
+    }
+
+    private fun toggleEmptyPlaceholder( active : Boolean ){
+        binding.ivEmpty.visibility = if( !active ) View.VISIBLE else View.GONE
+        binding.tvEmpty.visibility = if( !active ) View.VISIBLE else View.GONE
     }
 
 }

@@ -67,15 +67,24 @@ class OrdersFragment : Fragment( R.layout.fragment_orders ), View.OnClickListene
     private fun getOrders( id : String ){
         CoroutineScope( Dispatchers.IO ).launch {
             try{
+
                 val response = APIService().getOrdersFrom( id )
                 activity?.runOnUiThread {
                     ordersList.clear()
                     ordersList.addAll(0, response.body)
                     ordersAdapter.notifyDataSetChanged()
+
+                    binding.pbLoader.visibility = View.GONE
+                    toggleEmptyPlaceholders( ordersList.size > 0 )
                 }
             }catch ( e : Exception ){
                 Log.e("API Error", e.message ?: "")
             }
         }
+    }
+
+    private fun toggleEmptyPlaceholders( active : Boolean ){
+        binding.ivEmpty.visibility = if( !active ) View.VISIBLE else View.GONE
+        binding.tvEmpty.visibility = if( !active ) View.VISIBLE else View.GONE
     }
 }

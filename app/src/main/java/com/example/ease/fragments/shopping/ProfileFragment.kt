@@ -177,7 +177,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile), View.OnClickListene
 
                 activity?.runOnUiThread {
                     binding.btnSave.revertAnimation()
-                    Toast.makeText(context, "Editando usuario", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "La información se ha editado con éxito", Toast.LENGTH_SHORT).show()
+                    findNavController().popBackStack()
                 }
             } catch (e : Exception){
                 Log.e("Api error", e.toString())

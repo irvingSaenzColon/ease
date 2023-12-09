@@ -84,6 +84,10 @@
     <string name="checkout">Checkout</string>
     <string name="return_date">return date</string>
     <string name="tvOrderDetail">Order Detail</string>
+    <string name="empty_favorites">There\'s no favorites yet</string>
+    <string name="payment_empty">There\'s no payments created yet</string>
+    <string name="empty_rented">There\'s no rented cars yet</string>
+    <string name="empty_published">You haven\'t published a car yet</string>
 
 
 </resources>

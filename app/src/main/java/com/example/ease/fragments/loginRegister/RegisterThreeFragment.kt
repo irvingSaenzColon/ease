@@ -10,6 +10,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -74,6 +75,8 @@ class RegisterThreeFragment : Fragment(R.layout.fragment_register_3), View.OnCli
             try{
 
                 val response = APIService().signup( userModel )
+
+                Log.i("Response", response.body?.id.toString())
 
                 if(response.body != null) EaseApplication.session.storeSession( response.body )
 

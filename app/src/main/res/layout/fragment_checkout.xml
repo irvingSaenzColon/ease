@@ -173,7 +173,7 @@
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 style="@style/editText"
-                android:text="@string/rent_per_day"
+                android:text="@string/return_date"
                 android:gravity="center_vertical"
                 android:textSize="16sp"
                 android:layout_marginTop="24dp"

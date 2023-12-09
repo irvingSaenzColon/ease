@@ -38,6 +38,7 @@ class PaymentFragment : Fragment( R.layout.fragment_payment ), View.OnClickListe
 
         binding.btnAddPayment.setOnClickListener( this )
         binding.imReturn.setOnClickListener( this )
+        initRecyclerView()
 
         return binding.root
     }
@@ -62,13 +63,18 @@ class PaymentFragment : Fragment( R.layout.fragment_payment ), View.OnClickListe
         CoroutineScope( Dispatchers.IO ).launch {
             try{
                 val response = APIService().getAllMyPayments( id )
-                if(response.body.isNotEmpty()){
-                    paymentList.clear()
-                    paymentList.addAll( response.body )
-                    activity?.runOnUiThread {
-                        initRecyclerView()
+                activity?.runOnUiThread {
+
+                    if(response.body.isNotEmpty()){
+                        paymentList.clear()
+                        paymentList.addAll( response.body )
+                        paymentsAdapter.notifyDataSetChanged()
                     }
+
+                    binding.pbLoader.visibility = View.GONE
+                    toggleEmptyPlaceholders( paymentList.size > 0 )
                 }
+
             } catch (e: Exception){
                 activity?.runOnUiThread {
                     Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
@@ -86,6 +92,8 @@ class PaymentFragment : Fragment( R.layout.fragment_payment ), View.OnClickListe
                     paymentList.removeAt( index )
                     paymentsAdapter.notifyDataSetChanged()
                     Toast.makeText(context, "Se ha eliminado el método de pago", Toast.LENGTH_SHORT).show()
+
+                    toggleEmptyPlaceholders( paymentList.size > 0 )
                 }
             } catch (e : Exception){
                 activity?.runOnUiThread {
@@ -100,7 +108,6 @@ class PaymentFragment : Fragment( R.layout.fragment_payment ), View.OnClickListe
         binding.rvPayments.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.rvPayments.adapter = paymentsAdapter
     }
-
 
     private fun popUpMenu(view : View, index : Int, paymentModel: PaymentModel){
         val popupMenu = PopupMenu( view.context.applicationContext,  view)
@@ -120,5 +127,10 @@ class PaymentFragment : Fragment( R.layout.fragment_payment ), View.OnClickListe
             }
         }
         popupMenu.show()
+    }
+
+    private fun toggleEmptyPlaceholders( active: Boolean ){
+        binding.ivEmpty.visibility = if( !active ) View.VISIBLE else View.GONE
+        binding.tvEmpty.visibility = if( !active ) View.VISIBLE else View.GONE
     }
 }

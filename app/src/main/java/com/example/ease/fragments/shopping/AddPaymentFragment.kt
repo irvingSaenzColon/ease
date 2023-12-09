@@ -17,9 +17,12 @@ import com.example.ease.model.PaymentModel
 import com.example.ease.service.APIService
 import com.example.ease.util.PaymentState
 import com.example.ease.util.RegisterValidation
+import com.example.ease.util.validateCardNumber
+import com.example.ease.util.validateExpireValidation
 import com.example.ease.util.validateName
 import com.example.ease.util.validateNumber
 import com.example.ease.util.validateSimple
+import com.example.ease.util.validateZipCode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -90,7 +93,7 @@ class AddPaymentFragment  : Fragment( R.layout.fragment_add_payment ), View.OnCl
         CoroutineScope( Dispatchers.IO ).launch {
 
             try {
-                val response = APIService().createPayment( paymentModel )
+                APIService().createPayment( paymentModel )
 
                 activity?.runOnUiThread {
                     Toast.makeText(context, "Se ha creado un nuevo método de pago", Toast.LENGTH_SHORT).show()
@@ -111,7 +114,7 @@ class AddPaymentFragment  : Fragment( R.layout.fragment_add_payment ), View.OnCl
     private fun onUpdatePayment( paymentModel: PaymentModel ){
         CoroutineScope( Dispatchers.IO ).launch{
             try{
-                val response = APIService().updatePayment( paymentModel )
+                APIService().updatePayment( paymentModel )
                 activity?.runOnUiThread {
                     Toast.makeText(context, "Se ha actualizado el método de pago", Toast.LENGTH_SHORT).show()
                     binding.btnCreate.revertAnimation()
@@ -143,9 +146,9 @@ class AddPaymentFragment  : Fragment( R.layout.fragment_add_payment ), View.OnCl
 
     private fun shouldCreate( data : PaymentModel )  : Boolean{
         val nameValidation = validateName( data.name )
-        val numberValidation = validateNumber( data.number )
-        val expireValidation = validateSimple( data.expire )
-        val zipValidation = validateNumber( data.zip )
+        val numberValidation = validateCardNumber( data.number )
+        val expireValidation = validateExpireValidation( data.expire )
+        val zipValidation = validateZipCode( data.zip )
 
         return nameValidation is RegisterValidation.Success &&
                 numberValidation is RegisterValidation.Success &&

@@ -65,6 +65,8 @@ class FavoriteFragment : Fragment( R.layout.fragment_favorite ), View.OnClickLis
                     vehicleList.addAll(0, response.body )
                     vehicleAdapter.notifyDataSetChanged()
 
+                    binding.pbLoader.visibility = View.GONE
+                    toggleEmptyPlaceholders( vehicleList.size > 0 )
                 }
             } catch (e : Exception){
                 Log.e("API Error", e.message ?: "")
@@ -80,5 +82,10 @@ class FavoriteFragment : Fragment( R.layout.fragment_favorite ), View.OnClickLis
 
     private fun onClickVehicle(vehicleModel: VehicleModel){
         findNavController().navigate( FavoriteFragmentDirections.actionFavoriteFragmentToVehicleFragment( vehicleModel.id.toString() ) )
+    }
+
+    private fun toggleEmptyPlaceholders(active : Boolean){
+        binding.ivEmptyBpx.visibility = if(!active) View.VISIBLE else View.GONE
+        binding.tvEmpty.visibility = if(!active) View.VISIBLE else View.GONE
     }
 }

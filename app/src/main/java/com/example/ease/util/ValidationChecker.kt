@@ -23,6 +23,11 @@ fun numberFormat( number : String ) : Boolean{
     return regex.matches( number )
 }
 
+fun expireDateFormat( expireDate: String ) : Boolean{
+    val regex = "^[0-9]{2}\\/[0-9]{2}\$".toRegex()
+    return regex.matches( expireDate )
+}
+
 fun validateName( name : String ) : RegisterValidation{
     if(name.isEmpty())
         return RegisterValidation.Failed("Name can't be empty")
@@ -92,6 +97,46 @@ fun validateNumber(number : String) : RegisterValidation{
 
     return RegisterValidation.Success
 }
+
+fun validateCardNumber(number : String) : RegisterValidation{
+    if(number.isEmpty())
+        return RegisterValidation.Failed("Card number can't be empty")
+
+    if(number.length >=25)
+        return RegisterValidation.Failed("Card number is way too long")
+
+    if(!numberFormat( number ))
+        return RegisterValidation.Failed("Card number must contain only numbers")
+
+    return RegisterValidation.Success
+}
+
+fun validateZipCode( zip : String ) : RegisterValidation{
+    if(zip.isEmpty())
+        return RegisterValidation.Failed("Zip code can't be empty")
+
+    if(zip.length > 3)
+        return RegisterValidation.Failed("Zip code is way too long")
+
+    if(!numberFormat( zip ))
+        return RegisterValidation.Failed("Zip code must contain only numbers")
+
+    return RegisterValidation.Success
+}
+
+fun validateExpireValidation(expireDate : String) : RegisterValidation{
+    if(expireDate.isEmpty())
+        return RegisterValidation.Failed("Expire date can't be empty")
+
+    if(expireDate.length > 5)
+        return RegisterValidation.Failed("Expire date is way to long")
+
+    if(!expireDateFormat( expireDate ))
+        return RegisterValidation.Failed("Expire date must contain only numbers and follow MM/YY format")
+
+    return RegisterValidation.Success
+}
+
 fun validateDecimal(decimal: String) : RegisterValidation{
     if(decimal.isEmpty())
         return RegisterValidation.Failed("Password can't be empty")
